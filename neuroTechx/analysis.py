@@ -1,6 +1,7 @@
 import os
 
 from common.consts import CALIBRATION_MODE, userHeartRate60secAverageCollection
+from common.send_message import send_message
 from common.settings import get_settings
 import firebase_admin
 from firebase_admin import firestore
@@ -54,9 +55,10 @@ while True:
             update_user_avg_heartrate(user_info, avg_hr, len(heart_rates))
     else:
         isPanicAttack = False
-        if avg_hr > user_info['AvgHeartRate'] * 1.5:
+        if avg_hr > user_info['AvgHeartRate'] * 1.8:
             # SIGNAL PANIC ATTACK
             isPanicAttack = True
+            send_message(user_info["EmergencyContactNumber"])
         new_doc = {
             'startTimestamp': heart_rates[0].to_dict()['timestamp'],
             'endTimestamp': heart_rates[-1].to_dict()['timestamp'],
