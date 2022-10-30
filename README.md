@@ -1,6 +1,6 @@
 # NeuroTechXHackaton
 
-##Pipeline
+## Pipeline
 BPM gathered from sensors is read by hearthrate.py script and forwarded to GCP pub/sub. From there heartrateToFirestore.py reads incoming realtime data
 and stores it in appropriate firestore collections for future processing.
 
